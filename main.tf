@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 #Create security group with firewall rules
-resource "aws_security_group" "my_security_group" {
+resource "aws_security_group" "tf_security_group" {
   name        = var.security_group
   description = "security group for Ec2 instance"
 
@@ -35,7 +35,7 @@ resource "aws_security_group" "my_security_group" {
 }
 
 # Create AWS ec2 instance
-resource "aws_instance" "myFirstInstance" {
+resource "aws_instance" "tf_Instance" {
   ami           = var.ami_id
   key_name = var.key_name
   instance_type = var.instance_type
@@ -46,7 +46,7 @@ resource "aws_instance" "myFirstInstance" {
 }
 
 # Create Elastic IP address
-resource "aws_eip" "myFirstInstance" {
+resource "aws_eip" "tf_Instance" {
   vpc      = true
   instance = aws_instance.myFirstInstance.id
 tags= {
