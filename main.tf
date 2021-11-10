@@ -24,6 +24,6 @@ tags= {
 
 # Output ip address to local file
 resource "local_file" "public_ip" {
-    content  = aws_instance.tf_Instance.public_ip_dns_name
+    content  = aws_instance.tf_Instance.public_dns
     filename = "dev.inv"
 }
