@@ -1,0 +1,31 @@
+---
+- hosts: webservers
+  become: True
+  tasks:
+    - name: Ensure Jenkins repository is added
+      yum_repository:
+            name: jenkins-ci
+            description: jenkins repository
+            baseurl: http://pkg.jenkins-ci.org/redhat-stable/
+            gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+            gpgcheck: yes
+    - name: Ensure gpg key is imported
+      rpm_key:
+              state: present
+              key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    - name: Ensure Jenkins,python and java-devel packages installed
+      yum:
+              name: '{{ packages }}'
+              state: present
+              update_cache: true
+      vars:
+              packages:
+                      - jenkins
+                      - java-devel
+                      - python3
+    - name: Ensure systemd daemon-reload
+      command: systemctl daemon-reload
+    - name: Ensure Jenkins service is enabled and started
+      service:
+              name: jenkins
+              state: started
