@@ -2,6 +2,10 @@
 - hosts: webservers
   become: True
   tasks:
+    - name: upgrade all packages
+      yum: 
+        name: '*'
+        state: latest
     - name: Ensure Jenkins repository is added
       yum_repository:
             name: jenkins-ci
