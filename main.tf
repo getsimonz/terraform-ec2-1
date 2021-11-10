@@ -21,3 +21,9 @@ tags= {
     Name = "my_elastic_ip"
   }
 }
+
+# Output ip address to local file
+resource "local_file" "public_ip" {
+    content  = aws_instance.tf_Instance.public_ip
+    filename = "dev.inv"
+}
