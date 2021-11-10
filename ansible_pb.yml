@@ -29,4 +29,3 @@
       service:
               name: jenkins
               state: started
-name
