@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 # Create AWS ec2 instance
-resource "aws_instance" "tf_Instance" {
+resource "aws_instance" "tf_Instance_1" {
   ami           = var.ami_id
   key_name = var.key_name
   instance_type = var.instance_type
@@ -14,9 +14,9 @@ resource "aws_instance" "tf_Instance" {
 }
 
 # Create Elastic IP address
-resource "aws_eip" "tf_Instance" {
+resource "aws_eip" "tf_Instance_1" {
   vpc      = true
-  instance = aws_instance.tf_Instance.id
+  instance = aws_instance.tf_Instance_1.id
 tags= {
     Name = "my_elastic_ip"
   }
@@ -24,6 +24,6 @@ tags= {
 
 # Output ip address to local file
 resource "local_file" "public_ip" {
-    content  = aws_instance.tf_Instance.public_dns
+    content  = aws_instance.tf_Instance_1.public_dns
     filename = "dev.inv"
 }
