@@ -47,7 +47,7 @@ resource "aws_instance" "tf_Instance_1" {
 }
 
 # Create Elastic IP address
-resource "aws_eip" "tf_Instance_1" {
+resource "aws_eip" "tf_Instance_el" {
   vpc      = true
   instance = aws_instance.tf_Instance_1.id
 tags= {
