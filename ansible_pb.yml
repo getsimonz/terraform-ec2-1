@@ -1,23 +1,24 @@
 ---
-- hosts: webservers
+- hosts: localhost
   become: True
   tasks:
-    - name: upgrade all packages
-      yum: 
-        name: '*'
-        state: latest
-        become: True
+    - name: Add epel repository
+      dnf:
+         name: epel-release
+         state: latest
+      become: True
     - name: Ensure Jenkins repository is added
       yum_repository:
             name: jenkins-ci
             description: jenkins repository
-            baseurl: http://pkg.jenkins-ci.org/redhat-stable/
-            gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+            file: external_repos
+            baseurl: http://pkg.jenkins-ci.org/redhat-stable
+            gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
             gpgcheck: yes
     - name: Ensure gpg key is imported
       rpm_key:
               state: present
-              key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+              key: https://pkg.jenkins.io/redhat/jenkins.io.key
     - name: Ensure Jenkins,python and java-devel packages installed
       yum:
               name: '{{ packages }}'
